@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Architecture2</string>
+    <string name="btn_Reg_name">Регистрация</string>
+    <string name="btn_Login_name">Войти</string>
+    <string name="et_Password_text">Введите пароль</string>
+    <string name="et_Login_text">Введите логин</string>
+    <string name="tv_Main_Password_View">Пароль</string>
+    <string name="tv_Main_Login_View">Логин</string>
+    <string name="tv_Main_Autorization_View">Авторизация</string>
+    <string name="et_Password_reg_name">Придумайте пароль</string>
+    <string name="et_Login_reg_name">Придумайте логин</string>
+    <string name="btn_Registration_name">Зарегестрироваться</string>
+    <string name="tv_Reg_Login_text_name">Логин</string>
+    <string name="tv_Reg_Password_text_name">Пароль</string>
+    <string name="tv_Reg_Registration_text">Форма регистрации</string>
+    <string name="first_button">First Button</string>
+    <string name="second_button">Second Button</string>
+    <string name="you_click_on_first_button">You click on first button</string>
+    <string name="reset">reset</string>
+    <string name="Loading">Загрузка...</string>
+</resources>

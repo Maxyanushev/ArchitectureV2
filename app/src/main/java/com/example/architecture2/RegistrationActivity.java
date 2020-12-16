@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     EditText logReg;
     EditText passReg;
     Button registration;
+    ArrayList<UserModel> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +29,8 @@ public class RegistrationActivity extends AppCompatActivity {
         registration.setOnClickListener(v -> {
             if(logReg.length()>=3) {
                 if (passReg.length()>=8) {
-                    Utils.logins.add(logReg.getText().toString()); //Ввод логина в массив
-                    Utils.passwords.add(passReg.getText().toString()); //Ввод пароля в массив
+                    users.get(0).getLogUser(); //Ввод логина в массив
+                    users.get(0).getPassUser(); //Ввод логина в массив
                     regReturn();
                 }
                 else {

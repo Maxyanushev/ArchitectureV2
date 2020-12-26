@@ -9,7 +9,7 @@ public class Utils {
 
     public Utils() {
         users = new ArrayList<>();
-        users.add(new UserModel("login1", "password1"));
+        users.add(new UserModel("l1", "p1"));
         users.add(new UserModel("login2", "password2"));
         users.add(new UserModel("login3", "password3"));
 

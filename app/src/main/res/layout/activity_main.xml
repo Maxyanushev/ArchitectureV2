@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/tv_Main_Aftorization_text"
-        android:layout_width="173dp"
-        android:layout_height="36dp"
+        android:layout_width="114dp"
+        android:layout_height="32dp"
         android:layout_marginTop="16dp"
         android:text="@string/tv_Main_Autorization_View"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,18 +73,7 @@
         android:layout_marginBottom="40dp"
         android:text="@string/btn_Login_name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_Reg"
-        app:layout_constraintHorizontal_bias="0.235"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btn_Reg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:text="@string/btn_Reg_name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937" />
 </androidx.constraintlayout.widget.ConstraintLayout>

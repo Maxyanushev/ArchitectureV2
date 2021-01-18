@@ -1,13 +1,21 @@
 package com.example.architecture2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+
+import com.example.architecture2.threads.SomeThing;
+import com.example.architecture2.threads.SomeThread;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,11 +23,13 @@ import java.util.List;
 
 public class ThirdActivity extends AppCompatActivity {
 
-    Editable str;
-    String strs;
-    String result = "";
+    private ProgressBar progressBar;
 
-    EditText phone;
+    private SomeThread thread1;
+
+    private static final int REQUEST_PHONE_CALL = 22222;
+
+    EditText etPhone;
 
     Button btn1;
     Button btn2;
@@ -38,14 +48,20 @@ public class ThirdActivity extends AppCompatActivity {
 
     Button btnDelete;
 
-    Editable x;
+    Button btnCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
 
-        phone = findViewById(R.id.editTextTextPersonName4);
+        progressBar = findViewById(R.id.progressBar);
+
+        progressBar.setMax(100);
+
+
+        etPhone = findViewById(R.id.editTextTextPersonName4);
+
         btn1 = findViewById(R.id.button);
         btn2 = findViewById(R.id.button2);
         btn3 = findViewById(R.id.button3);
@@ -63,6 +79,8 @@ public class ThirdActivity extends AppCompatActivity {
 
         btnDelete = findViewById(R.id.button13);
 
+        btnCall = findViewById(R.id.btnCall);
+
         /*
         Задали id каждому элементу экрана
          */
@@ -76,120 +94,71 @@ public class ThirdActivity extends AppCompatActivity {
             После чего мы проделываем всё то же самое, только перед этим ставим тот текст, что там был до этого
              */
 
-            if(phone.getText().equals("")) {
-                phone.setText("1");
-            } else {
-                x = phone.getText();
-                phone.setText(x +"1");
-            }
+            etPhone.setText(etPhone.getText().append("1"));
+
+//            if(etPhone.getText().equals("")) {
+//                etPhone.setText("1");
+//            } else {
+//                x = etPhone.getText();
+//                etPhone.setText(x +"1");
+//            }
         });
 
         btn2.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("4");
-            } else {
-                x = phone.getText();
-                phone.setText(x +"4");
-            }
+            etPhone.setText(etPhone.getText().append("4"));
         });
 
         btn3.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("7");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "7");
-            }
+            etPhone.setText(etPhone.getText().append("7"));
         });
 
         btn4.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("*");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "*");
-            }
+            etPhone.setText(etPhone.getText().append("*"));
         });
 
         btn5.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("2");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "2");
-            }
+            etPhone.setText(etPhone.getText().append("2"));
         });
 
         btn6.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("5");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "5");
-            }
+            etPhone.setText(etPhone.getText().append("5"));
         });
 
         btn7.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("8");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "8");
-            }
+            etPhone.setText(etPhone.getText().append("8"));
         });
 
         btn8.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("0");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "0");
-            }
+            etPhone.setText(etPhone.getText().append("0"));
         });
 
         btn9.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("3");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "3");
-            }
+            etPhone.setText(etPhone.getText().append("3"));
         });
 
         btn10.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("6");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "6");
-            }
+            etPhone.setText(etPhone.getText().append("6"));
         });
 
         btn11.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText("9");
-            } else {
-                x = phone.getText();
-                phone.setText(x + "9");
-            }
+            etPhone.setText(etPhone.getText().append("9"));
         });
 
         btn12.setOnClickListener(v -> {
-            if(phone.getText().equals("")) {
-                phone.setText(".");
-            } else {
-                x = phone.getText();
-                phone.setText(x + ".");
-            }
+            etPhone.setText(etPhone.getText().append("."));
         });
 
         btnDelete.setOnClickListener(v -> {
+
+            Editable str;
+            String strs;
+            String result = "";
 
             /*
             Создали дейсвия при нажатии на кнопку "Стереть"
              */
 
-            str = phone.getText();
+            str = etPhone.getText();
             strs = str.toString();
 
             /*
@@ -208,8 +177,61 @@ public class ThirdActivity extends AppCompatActivity {
             for (String a : myList) {
                 result = result + a;
             }
-            phone.setText(result);
-            result = "";
+            etPhone.setText(result);
+
         });
+
+        btnCall.setOnClickListener(v -> call(etPhone.getText().toString()));
+
+        startThreads();
+        setProgress();
+
+    }
+
+    private void setProgress() {
+        Thread thread = new Thread(() -> {
+            for (int i = 0; i <= 100; i += 3) {
+                progressBar.setProgress(i);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.setName("MyThread");
+        thread.start();
+    }
+
+    private void startThreads() {
+        // Запуск потока первый способ
+        thread1 = new SomeThread();
+        thread1.start();
+
+        // Запуск потока второй способ (рекомендуется)
+        SomeThing someThing = new SomeThing();
+        Thread thread2 = new Thread(someThing);
+        thread2.start();
+
+        // Запуск потока третий способ
+        Thread thread3 = new Thread(() -> System.out.println("Привет из потока №3"));
+
+        // Запуск потока четвёртый способ
+        Thread thread4 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Привет из потока №4");
+            }
+        });
+    }
+
+    private void call(String phone) {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+        } else {
+            startActivity(intent);
+
+        }
     }
 }
